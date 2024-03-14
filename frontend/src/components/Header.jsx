@@ -1,7 +1,6 @@
 import { Flex, Image, useColorMode } from "@chakra-ui/react";
-import React from "react";
-import  lightLogo  from "../../public/light-logo.svg";
-import darkLogo  from "../../public/dark-logo.svg";
+import  lightLogo  from "/light-logo.svg";
+import darkLogo  from "/dark-logo.svg";
 
 const Header = () => {
   const { colorMode, toggleColorMode } = useColorMode();

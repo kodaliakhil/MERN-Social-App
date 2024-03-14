@@ -1,12 +1,17 @@
 import { Flex } from "@chakra-ui/react";
-import React from "react";
 
 const Actions = ({ liked, setLiked }) => {
   function handleLikeAndUnlike() {
-    setLiked(!liked)
+    setLiked(!liked);
   }
   return (
-    <Flex gap={3} my={2} onClick={(e) => e.preventDefault()}>
+    <Flex
+      gap={3}
+      my={2}
+      onClick={
+        (e) => e.preventDefault() //This e.preventDefault() will make sure not to navigate to post page because we wrapped the whole userPost component using <Link></Link>
+      }
+    >
       {/* Like SVG */}
       <svg
         aria-label="Like"

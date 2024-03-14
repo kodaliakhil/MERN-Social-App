@@ -11,8 +11,7 @@ import {
   VStack,
   useToast,
 } from "@chakra-ui/react";
-import React from "react";
-import zuckAvatar from "../../public/zuck-avatar.png";
+import zuckAvatar from "/zuck-avatar.png";
 import { Link } from "react-router-dom";
 import { BsInstagram } from "react-icons/bs";
 import { CgMoreO } from "react-icons/cg";
@@ -52,7 +51,7 @@ const UserHeader = () => {
           </Flex>
         </Box>
         <Box>
-          <Avatar name="Mark Zuckerberg" src={zuckAvatar} size={"xl"} />
+          <Avatar name="Mark Zuckerberg" src={zuckAvatar} size={{base:"md",md:"xl"}} />
         </Box>
       </Flex>
       <Text>Co-founder, executive chairman and CEO of Meta Platforms.</Text>
@@ -83,7 +82,7 @@ const UserHeader = () => {
         </Flex>
       </Flex>
 
-      <Flex w={'full'}>
+      <Flex w={"full"}>
         <Flex
           flex={1}
           borderBottom={"1.5px solid white"}

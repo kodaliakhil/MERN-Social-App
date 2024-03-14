@@ -1,13 +1,12 @@
 import { Avatar, Box, Flex, Image, Text } from "@chakra-ui/react";
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
-import zuckAvatar from "../../public/zuck-avatar.png";
-import verifiedImg from "../../public/verified.png";
-import post1 from "../../public/post1.png";
+import zuckAvatar from "/zuck-avatar.png";
+import verifiedImg from "/verified.png";
 import { BsThreeDots } from "react-icons/bs";
 import Actions from "./Actions";
 
-const UserPost = () => {
+const UserPost = ({ likes, replies, postImg, postTitle }) => {
   const [liked, setLiked] = useState(false);
   return (
     <Link to={"/markzuckerberg/post/1"}>
@@ -60,25 +59,27 @@ const UserPost = () => {
               <BsThreeDots />
             </Flex>
           </Flex>
-          <Text fontSize={"sm"}>This is my first post</Text>
-          <Box
-            borderRadius={6}
-            overflow={"hidden"}
-            border={"1px solid"}
-            borderColor={"gray.light"}
-          >
-            <Image src={post1} w={"full"} />
-          </Box>
+          <Text fontSize={"sm"}>{postTitle}</Text>
+          {postImg && (
+            <Box
+              borderRadius={6}
+              overflow={"hidden"}
+              border={"1px solid"}
+              borderColor={"gray.light"}
+            >
+              <Image src={postImg} w={"full"} />
+            </Box>
+          )}
           <Flex gap={3} my={3}>
             <Actions liked={liked} setLiked={setLiked} />
           </Flex>
           <Flex gap={2} alignItems={"center"}>
             <Text color={"gray.light"} fontSize={"sm"}>
-              123 replies
+              {replies} replies
             </Text>
-            <Box w={0.5} h={0.5} borderRadius={"full"} bg={"grau.light"}></Box>
+            <Box w={0.5} h={0.5} borderRadius={"full"} bg={"gray.light"}></Box>
             <Text color={"gray.light"} fontSize={"sm"}>
-              456 likes
+              {likes} likes
             </Text>
           </Flex>
         </Flex>
