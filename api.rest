@@ -2,11 +2,90 @@ POST http://localhost:3000/api/users/signup HTTP/1.1
 Content-Type: application/json
 
 {
-    "name":"user1",
-    "email":"user@gmail.com",
-    "username":"user123",
+    "name":"user3",
+    "email":"user3@gmail.com",
+    "username":"user3",
     "password":"user123"
 }
 
+
+###
+
+
+POST http://localhost:3000/api/users/login HTTP/1.1
+Content-Type: application/json
+
+{
+    "username":"user2",
+    "password":"user123"
+}
+
+
+###
+
+POST http://localhost:3000/api/users/logout HTTP/1.1
+Content-Type: application/json
+
+
+
+###
+
+POST http://localhost:3000/api/users/follow/66029f932a8ffbf60a72e421 HTTP/1.1
+Content-Type: application/json
+
+
+
+###
+
+PUT http://localhost:3000/api/users/update/65f270c868019fbfb3fd89f6 HTTP/1.1
+Content-Type: application/json
+
+{
+    "username":"user123452"
+}
+
+
+###
+
+GET http://localhost:3000/api/users/profile/user123452 HTTP/1.1
+Content-Type: application/json
+
+
+
+
+###
+POST http://localhost:3000/api/posts/create HTTP/1.1
+Content-Type: application/json
+
+{
+    "postedBy":"66029f932a8ffbf60a72e421",
+    "text":"user3 post3"
+}
+
+
+###
+GET http://localhost:3000/api/posts/getPost/660297c63853c6d9ff7ffc0e HTTP/1.1
+Content-Type: application/json
+
+###
+DELETE http://localhost:3000/api/posts/delPost/66026c872e70765d1c900e03 HTTP/1.1
+Content-Type: application/json
+
+###
+POST http://localhost:3000/api/posts/like/660297c63853c6d9ff7ffc0e HTTP/1.1
+Content-Type: application/json
+
+
+###
+POST http://localhost:3000/api/posts/reply/660297c63853c6d9ff7ffc0e HTTP/1.1
+Content-Type: application/json
+
+{
+    "text":"Nice post"
+}
+###
+###
+GET http://localhost:3000/api/posts/feed HTTP/1.1
+Content-Type: application/json
 
 ###
