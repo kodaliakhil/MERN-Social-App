@@ -26,6 +26,8 @@ import userAtom from "../atoms/userAtom";
 
 export default function SignupCard() {
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
+
   const setAuthScreen = useSetRecoilState(authScreenAtom);
   const [inputs, setInputs] = useState({
     name: "",
@@ -36,6 +38,7 @@ export default function SignupCard() {
   const showToast = useShowToast();
   const setUser = useSetRecoilState(userAtom);
   const handleSignUp = async () => {
+    setLoading(true);
     try {
       const res = await fetch("/api/users/signup", {
         // It will take prefix of the url from vite.config.js > proxy > /api > target
@@ -54,6 +57,8 @@ export default function SignupCard() {
       setUser(data);
     } catch (error) {
       showToast("Error", error, "error");
+    } finally {
+      setLoading(false);
     }
   };
   return (
@@ -139,6 +144,7 @@ export default function SignupCard() {
                   bg: useColorModeValue("gray.700", "gray.800"),
                 }}
                 onClick={handleSignUp}
+                isLoading={loading}
               >
                 Sign up
               </Button>

@@ -1,13 +1,15 @@
 import { Button } from "@chakra-ui/react";
-import React from "react";
+import React, { useState } from "react";
 import { useSetRecoilState } from "recoil";
 import userAtom from "../atoms/userAtom";
 import useShowToast from "../hooks/useShowToast";
 
 const LogoutBtn = () => {
+  const [loading, setLoading] = useState(false);
   const setUser = useSetRecoilState(userAtom);
   const showToast = useShowToast();
   const handleLogout = async () => {
+    setLoading(true);
     try {
       // fetch /logout
       const res = await fetch("/api/users/logout", {
@@ -25,6 +27,8 @@ const LogoutBtn = () => {
       setUser(null);
     } catch (error) {
       showToast("Error", error, "error");
+    } finally {
+      setLoading(false);
     }
   };
   return (
@@ -34,6 +38,7 @@ const LogoutBtn = () => {
       right={"30px"}
       size={"sm"}
       onClick={handleLogout}
+      isLoading={loading}
     >
       Logout
     </Button>

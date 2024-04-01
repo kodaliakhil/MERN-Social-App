@@ -30,12 +30,15 @@ export default function UpdateProfilePage() {
     bio: user.bio,
     password: "",
   });
+  const [updating, setUpdating] = useState(false);
   const fileRef = useRef(null);
 
   const { handleImgChange, imgUrl } = usePreviewImg();
   const showToast = useShowToast();
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (updating) return;
+    setUpdating(true);
     try {
       const res = await fetch(`/api/users/update/${user._id}`, {
         method: "PUT",
@@ -52,6 +55,8 @@ export default function UpdateProfilePage() {
       setUser(data);
     } catch (error) {
       showToast("Error", error, "error");
+    } finally {
+      setUpdating(false);
     }
   };
   return (
@@ -146,7 +151,7 @@ export default function UpdateProfilePage() {
             />
           </FormControl>
           <Stack spacing={6} direction={["column", "row"]}>
-            <Button
+            {/* <Button
               bg={"red.400"}
               color={"white"}
               w="full"
@@ -155,7 +160,7 @@ export default function UpdateProfilePage() {
               }}
             >
               Cancel
-            </Button>
+            </Button> */}
             <Button
               bg={"green.400"}
               color={"white"}
@@ -164,6 +169,7 @@ export default function UpdateProfilePage() {
                 bg: "green.500",
               }}
               type="submit"
+              isLoading={updating}
             >
               Submit
             </Button>
