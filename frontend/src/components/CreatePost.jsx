@@ -21,9 +21,11 @@ import {
 import React, { useRef, useState } from "react";
 import usePreviewImg from "../hooks/usePreviewImg";
 import { BsFillImageFill } from "react-icons/bs";
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import userAtom from "../atoms/userAtom";
 import useShowToast from "../hooks/useShowToast";
+import postsAtom from "../atoms/postsAtom";
+import { useParams } from "react-router-dom";
 
 const MAX_CHAR = 500;
 const CreatePost = () => {
@@ -35,6 +37,8 @@ const CreatePost = () => {
   const { handleImgChange, imgUrl, setImgUrl } = usePreviewImg();
   const imageRef = useRef(null);
   const showToast = useShowToast();
+  const [posts, setPosts] = useRecoilState(postsAtom);
+  const { username } = useParams();
   const handleTextChange = (e) => {
     const inputText = e.target.value;
     if (inputText.length > MAX_CHAR) {
@@ -65,6 +69,9 @@ const CreatePost = () => {
         showToast("Error", data.error, "error");
       }
       showToast("Success", "Post Created Successfully.", "success");
+      if (username === user.username) {
+        setPosts([data, ...posts]);
+      }
       onClose();
       setPostText("");
       setImgUrl("");
@@ -79,10 +86,11 @@ const CreatePost = () => {
       <Button
         position={"fixed"}
         bottom={10}
-        right={10}
+        right={5}
         leftIcon={<AddIcon />}
         bg={useColorModeValue("gray.300", "gray.dark")}
         onClick={onOpen}
+        size={{ base: "sm", sm: "md", md: "lg" }}
       >
         Post
       </Button>

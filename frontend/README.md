@@ -4,6 +4,7 @@
 - `cursor:"pointer"` where ever necessary.
 - Add Actions to the comments.
 - Remove `showToast` from `useEffect dependencies` if not necessary
+- Add delete comment functionality.
 
 # To get rid of cors error
 
