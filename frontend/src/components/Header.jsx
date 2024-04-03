@@ -6,6 +6,7 @@ import { useRecoilValue, useSetRecoilState } from "recoil";
 import userAtom from "../atoms/userAtom";
 import { AiFillHome } from "react-icons/ai";
 import { RxAvatar } from "react-icons/rx";
+import { BsFillChatQuoteFill } from "react-icons/bs";
 import LogoutBtn from "./LogoutBtn";
 import authScreenAtom from "../atoms/authAtom";
 
@@ -20,7 +21,11 @@ const Header = () => {
           <AiFillHome size={24} />
         </Link>
       )}
-      {!user && <Link to={'/auth'} onClick={() => setAuthScreen("login")}>Login</Link>}
+      {!user && (
+        <Link to={"/auth"} onClick={() => setAuthScreen("login")}>
+          Login
+        </Link>
+      )}
       <Image
         cursor={"pointer"}
         alt="logo"
@@ -33,11 +38,18 @@ const Header = () => {
           <Link to={`/${user.username}`}>
             <RxAvatar size={24} />
           </Link>
+          <Link to={"/chat"}>
+            <BsFillChatQuoteFill size={20} />
+          </Link>
           <LogoutBtn />
         </Flex>
       )}
 
-      {!user && <Link to={'/auth'} onClick={() => setAuthScreen("signup")}>Sign Up</Link>}
+      {!user && (
+        <Link to={"/auth"} onClick={() => setAuthScreen("signup")}>
+          Sign Up
+        </Link>
+      )}
     </Flex>
   );
 };
