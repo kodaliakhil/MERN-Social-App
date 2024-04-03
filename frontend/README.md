@@ -1,6 +1,14 @@
+# To-do
+
+- Make custom hook for `handleDeletePost`.
+- `cursor:"pointer"` where ever necessary.
+- Add Actions to the comments.
+- Remove `showToast` from `useEffect dependencies` if not necessary
+
 # To get rid of cors error
 
 - We can add
+
   `server: {
   // to get rid of cors error
   proxy: {
@@ -11,4 +19,5 @@
     },
   },
 },`
+
   in `vite.config.js` file

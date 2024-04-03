@@ -1,19 +1,39 @@
 import { Avatar, Box, Flex, Image, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import zuckAvatar from "/zuck-avatar.png";
 import verifiedImg from "/verified.png";
 import { BsThreeDots } from "react-icons/bs";
 import Actions from "./Actions";
 import useShowToast from "../hooks/useShowToast";
 import { formatDistanceToNow } from "date-fns";
-
+import { DeleteIcon } from "@chakra-ui/icons";
+import { useRecoilState, useRecoilValue } from "recoil";
+import userAtom from "../atoms/userAtom";
+import postsAtom from "../atoms/postsAtom";
 const Post = ({ post, postedBy }) => {
-  const [liked, setLiked] = useState(false);
   const [user, setUser] = useState(null);
+  const [posts, setPosts] = useRecoilState(postsAtom);
   const showToast = useShowToast();
+  const currentUser = useRecoilValue(userAtom);
   const navigate = useNavigate();
-  //   console.log(user);
+  const handleDeletePost = async (e) => {
+    e.preventDefault();
+    try {
+      if (!window.confirm("Are you sure you want to delete this post?")) return;
+      const res = await fetch(`/api/posts/delPost/${post._id}`, {
+        method: "DELETE",
+      });
+      const data = await res.json();
+      if (data.error) {
+        showToast("Error", data.error, "error");
+        return;
+      }
+      showToast("Success", "Post Deleted", "success");
+      setPosts(posts.filter((p) => p._id !== post._id));
+    } catch (error) {
+      showToast("Error", error, "error");
+    }
+  };
   useEffect(() => {
     const getUser = async () => {
       try {
@@ -23,15 +43,14 @@ const Post = ({ post, postedBy }) => {
           showToast("Error", data.error, "error");
           return;
         }
-        console.log(data);
-        setUser(data.user);
+        setUser(data);
       } catch (error) {
         showToast("Error", error, "error");
         setUser(null);
       }
     };
     getUser();
-  }, [postedBy]);
+  }, [postedBy, showToast]);
   if (!user) return null;
   return (
     <Link to={`/${user.username}/post/${post._id}`}>
@@ -108,6 +127,14 @@ const Post = ({ post, postedBy }) => {
               >
                 {formatDistanceToNow(new Date(post.createdAt))} ago
               </Text>
+
+              {currentUser?._id === user._id && (
+                <DeleteIcon
+                  size={20}
+                  cursor={"pointer"}
+                  onClick={handleDeletePost}
+                />
+              )}
             </Flex>
           </Flex>
           <Text fontSize={"sm"}>{post.text}</Text>
@@ -122,16 +149,7 @@ const Post = ({ post, postedBy }) => {
             </Box>
           )}
           <Flex gap={3} my={3}>
-            <Actions liked={liked} setLiked={setLiked} />
-          </Flex>
-          <Flex gap={2} alignItems={"center"}>
-            <Text color={"gray.light"} fontSize={"sm"}>
-              {post.replies.length} replies
-            </Text>
-            <Box w={0.5} h={0.5} borderRadius={"full"} bg={"gray.light"}></Box>
-            <Text color={"gray.light"} fontSize={"sm"}>
-              {post.likes.length} likes
-            </Text>
+            <Actions post={post} />
           </Flex>
         </Flex>
       </Flex>
