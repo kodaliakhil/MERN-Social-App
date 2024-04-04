@@ -14,11 +14,18 @@ import Conversation from "../components/Conversation";
 import MessageContainer from "../components/MessageContainer";
 import useShowToast from "../hooks/useShowToast";
 import { useRecoilState } from "recoil";
-import conversationsAtom from "../atoms/conversationsAtom";
+import {
+  conversationsAtom,
+  selectedConversationAtom,
+} from "../atoms/conversationsAtom";
+import { GiConversation } from "react-icons/gi";
 
 const ChatPage = () => {
   const [loadingConversations, setLoadingConversations] = useState(true);
   const [conversations, setConversations] = useRecoilState(conversationsAtom);
+  const [selectedConversation, setSelectedConversation] = useRecoilState(
+    selectedConversationAtom
+  );
   const showToast = useShowToast();
   useEffect(() => {
     const getConversations = async () => {
@@ -29,7 +36,7 @@ const ChatPage = () => {
           showToast("Error", data.error, "error");
           return;
         }
-        console.log(data)
+        console.log(data);
         setConversations(data);
       } catch (error) {
         showToast("Error", error, "error");
@@ -102,19 +109,22 @@ const ChatPage = () => {
                 />
               ))}
         </Flex>
-        {/* <Flex
-          flex={70}
-          borderRadius={"md"}
-          p={2}
-          flexDir={"column"}
-          alignItems={"center"}
-          justifyContent={"center"}
-          height={"400px"}
-        >
-          <GiConversation size={100} />
-          <Text fontSize={20}>Select a Conversation to start messaging</Text>
-        </Flex> */}
-        <MessageContainer />
+        {!selectedConversation._id ? (
+          <Flex
+            flex={70}
+            borderRadius={"md"}
+            p={2}
+            flexDir={"column"}
+            alignItems={"center"}
+            justifyContent={"center"}
+            height={"400px"}
+          >
+            <GiConversation size={100} />
+            <Text fontSize={20}>Select a Conversation to start messaging</Text>
+          </Flex>
+        ) : (
+          <MessageContainer />
+        )}
       </Flex>
     </Box>
   );

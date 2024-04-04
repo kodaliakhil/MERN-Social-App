@@ -1,21 +1,25 @@
 import { Avatar, Flex, Text } from "@chakra-ui/react";
 import React from "react";
+import { selectedConversationAtom } from "../atoms/conversationsAtom";
+import { useRecoilValue } from "recoil";
+import userAtom from "../atoms/userAtom";
 
-const Message = ({ ownMessage }) => {
+const Message = ({ message, ownMessage }) => {
+  const selectedConversation = useRecoilValue(selectedConversationAtom);
+  const currentUser = useRecoilValue(userAtom);
+  console.log(message);
   return (
     <>
       {ownMessage ? (
         <Flex gap={2} alignSelf={"flex-end"}>
           <Text maxW={"350px"} bg={"blue.400"} p={1} borderRadius={"md"}>
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the industry's standard dummy text
-            ever since the 1500s.
+            {message.text}
           </Text>
-          <Avatar src="" w={7} h={7} />
+          <Avatar src={currentUser.profilePic} w={7} h={7} />
         </Flex>
       ) : (
         <Flex gap={2}>
-          <Avatar src="" w={7} h={7} />
+          <Avatar src={selectedConversation.userProfilePic} w={7} h={7} />
 
           <Text
             maxW={"350px"}
@@ -24,10 +28,7 @@ const Message = ({ ownMessage }) => {
             borderRadius={"md"}
             color={"black"}
           >
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the industry's standard dummy text
-            ever since the 1500s, when an unknown printer took a galley of type
-            and scrambled it to make a type specimen book.
+            {message.text}
           </Text>
         </Flex>
       )}
