@@ -11,6 +11,7 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 import Conversation from "../components/Conversation";
+import MessageContainer from "../components/MessageContainer";
 
 const ChatPage = () => {
   return (
@@ -69,14 +70,26 @@ const ChatPage = () => {
                 </Flex>
               </Flex>
             ))}
-            <Conversation/>
-            <Conversation/>
-            <Conversation/>
-            <Conversation/>
-            <Conversation/>
-            <Conversation/>
+          <Conversation />
+          <Conversation />
+          <Conversation />
+          <Conversation />
+          <Conversation />
+          <Conversation />
         </Flex>
-        <Flex flex={70}>MessageContainer</Flex>
+        {/* <Flex
+          flex={70}
+          borderRadius={"md"}
+          p={2}
+          flexDir={"column"}
+          alignItems={"center"}
+          justifyContent={"center"}
+          height={"400px"}
+        >
+          <GiConversation size={100} />
+          <Text fontSize={20}>Select a Conversation to start messaging</Text>
+        </Flex> */}
+        <MessageContainer />
       </Flex>
     </Box>
   );
