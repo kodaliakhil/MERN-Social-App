@@ -1,0 +1,17 @@
+
+POST http://localhost:3000/api/messages HTTP/1.1
+Content-Type: application/json
+
+{
+    "recipientId":"660296fe3853c6d9ff7ffbff",
+    "message":"User1 message3"
+}
+
+###
+
+GET http://localhost:3000/api/messages/660296fe3853c6d9ff7ffbff HTTP/1.1
+Content-Type: application/json
+###
+
+GET http://localhost:3000/api/messages/conversations HTTP/1.1
+Content-Type: application/json

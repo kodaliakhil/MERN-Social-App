@@ -15,9 +15,12 @@
 
 - Configure `.env` by importing `import dotenv from "dotenv"` and then use it using `dotenv.config()`. Now we can define variables in `.env` file and use them in our application using `process.env.VARIABLE_NAME`
 
-
 - `Database Setup`: In this appilcation we are using `MongoDB` as Database. So created a folder in backend folder as `db` and then created a javascript file `connectDB.js` where we will write our code to connect DB
 
 - `DB Models Creation`: created a seperate folder for all the models.
 
 - `MIDDLEWARE`: Middleware is the function that runs between request and response
+
+# Models for Conversations and messages
+
+![models design](image.png)
