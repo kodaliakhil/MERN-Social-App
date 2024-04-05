@@ -23,6 +23,8 @@ const Conversation = ({ conversation }) => {
     selectedConversationAtom
   );
   const colorMode = useColorMode();
+  if (!user) return null;
+
   return (
     <Flex
       gap={4}
