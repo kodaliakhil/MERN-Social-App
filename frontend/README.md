@@ -25,13 +25,21 @@
   in `vite.config.js` file
 
 # Achieving Chat functionality without webSocket
+
 ![chat functionality without websocket](image.png)
+
 # Achieving Chat functionality with webSocket
+
 ![chat functionality with websocket](image-1.png)
 ![methods in socket.io](image-2.png)
 ![how socket.io work](image-3.png)
 
 # Websocket Implementation
+
 - After socket setup in the backend install `socket-clent` in the frontend
 
 `npm i socket.io-client`
+
+# seen unseen functionality
+
+![seen unseen functionality](image-4.png)

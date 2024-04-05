@@ -8,6 +8,7 @@ import {
   WrapItem,
   useColorMode,
   useColorModeValue,
+  Box,
 } from "@chakra-ui/react";
 import React from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
@@ -70,7 +71,13 @@ const Conversation = ({ isOnline, conversation }) => {
           {user.username} <Image src="/verified.png" w={4} h={4} ml={1} />
         </Text>
         <Text fontSize={"xs"} display={"flex"} alignItems={"center"} gap={1}>
-          {currentUser._id === lastMessage.sender ? <BsCheck2All /> : ""}
+          {currentUser._id === lastMessage.sender ? (
+            <Box color={lastMessage.seen ? "blue.400" : ""}>
+              <BsCheck2All />
+            </Box>
+          ) : (
+            ""
+          )}
           {lastMessage.text.length > 18
             ? lastMessage.text.substring(0, 18) + "..."
             : lastMessage.text}

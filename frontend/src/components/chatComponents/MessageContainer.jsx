@@ -16,14 +16,12 @@ import {
   conversationsAtom,
   selectedConversationAtom,
 } from "../../atoms/conversationsAtom";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import userAtom from "../../atoms/userAtom";
 import { useSocket } from "../../context/SocketContext";
 
 const MessageContainer = () => {
-  const [selectedConversation, setSelectedConversation] = useRecoilState(
-    selectedConversationAtom
-  );
+  const selectedConversation = useRecoilValue(selectedConversationAtom);
   const [loadingMessages, setLoadingMessages] = useState(true);
   const [messages, setMessages] = useState([]);
   const currentUser = useRecoilValue(userAtom);
@@ -59,7 +57,31 @@ const MessageContainer = () => {
     });
 
     return () => socket.off("newMessage");
-  }, [socket]);
+  }, [socket, selectedConversation, setConversations]);
+  useEffect(() => {
+    const lastMessageIsFromOtherUser =
+      messages.length &&
+      messages[messages.length - 1].sender !== currentUser._id;
+    if (lastMessageIsFromOtherUser) {
+      socket.emit("markMessageAsSeen", {
+        conversationId: selectedConversation._id,
+        userId: selectedConversation.userId,
+      });
+    }
+    socket.on("messageSeen", ({ conversationId }) => {
+      if (conversationId === selectedConversation._id) {
+        setMessages((prev) => {
+          const updatedMessages = prev.map((message) => {
+            if (!message.seen) {
+              return { ...message, seen: true };
+            }
+            return message;
+          });
+          return updatedMessages;
+        });
+      }
+    });
+  }, [socket, currentUser._id, messages, selectedConversation]);
   useEffect(() => {
     const getMessages = async () => {
       setLoadingMessages(true);
@@ -80,7 +102,7 @@ const MessageContainer = () => {
       }
     };
     getMessages();
-  }, [selectedConversation.userId]);
+  }, [selectedConversation.userId, selectedConversation.mock]);
   return (
     <Flex
       flex={"70"}
