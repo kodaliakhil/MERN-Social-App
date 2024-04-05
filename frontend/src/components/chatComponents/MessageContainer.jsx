@@ -11,10 +11,10 @@ import {
 import React, { useEffect, useState } from "react";
 import Message from "./Message";
 import MessageInput from "./MessageInput";
-import useShowToast from "../hooks/useShowToast";
-import { selectedConversationAtom } from "../atoms/conversationsAtom";
+import useShowToast from "../../hooks/useShowToast";
+import { selectedConversationAtom } from "../../atoms/conversationsAtom";
 import { useRecoilState, useRecoilValue } from "recoil";
-import userAtom from "../atoms/userAtom";
+import userAtom from "../../atoms/userAtom";
 
 const MessageContainer = () => {
   const [selectedConversation, setSelectedConversation] = useRecoilState(
@@ -29,6 +29,7 @@ const MessageContainer = () => {
       setLoadingMessages(true);
       setMessages([]);
       try {
+        if (selectedConversation.mock) return;
         const res = await fetch(`api/messages/${selectedConversation.userId}`);
         const data = await res.json();
         if (data.error) {

@@ -1,8 +1,8 @@
 import { Avatar, Flex, Text } from "@chakra-ui/react";
 import React from "react";
-import { selectedConversationAtom } from "../atoms/conversationsAtom";
+import { selectedConversationAtom } from "../../atoms/conversationsAtom";
 import { useRecoilValue } from "recoil";
-import userAtom from "../atoms/userAtom";
+import userAtom from "../../atoms/userAtom";
 
 const Message = ({ message, ownMessage }) => {
   const selectedConversation = useRecoilValue(selectedConversationAtom);

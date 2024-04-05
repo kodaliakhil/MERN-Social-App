@@ -11,9 +11,9 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
-import userAtom from "../atoms/userAtom";
+import userAtom from "../../atoms/userAtom";
 import { BsCheck2All } from "react-icons/bs";
-import { selectedConversationAtom } from "../atoms/conversationsAtom";
+import { selectedConversationAtom } from "../../atoms/conversationsAtom";
 
 const Conversation = ({ conversation }) => {
   const user = conversation.participants[0];
@@ -49,6 +49,7 @@ const Conversation = ({ conversation }) => {
           userId: user._id,
           userProfilePic: user.profilePic,
           username: user.username,
+          mock: conversation.mock,
         })
       }
     >

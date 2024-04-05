@@ -5,6 +5,7 @@
 - Add Actions to the comments.
 - Remove `showToast` from `useEffect dependencies` if not necessary
 - Add delete comment functionality.
+- Implement `Debouncing`
 
 # To get rid of cors error
 
