@@ -23,3 +23,11 @@
 },`
 
   in `vite.config.js` file
+
+# Achieving Chat functionality without webSocket
+![chat functionality without websocket](image.png)
+# Achieving Chat functionality with webSocket
+![chat functionality with websocket](image-1.png)
+![methods in socket.io](image-2.png)
+![how socket.io work](image-3.png)
+
