@@ -20,17 +20,20 @@ import {
 } from "../atoms/conversationsAtom";
 import { GiConversation } from "react-icons/gi";
 import userAtom from "../atoms/userAtom";
+import { useSocket } from "../context/SocketContext";
 
 const ChatPage = () => {
   const [loadingConversations, setLoadingConversations] = useState(true);
   const [searchingUser, setSearchingUser] = useState(false);
   const [searchText, setSearchText] = useState("");
   const [conversations, setConversations] = useRecoilState(conversationsAtom);
+  console.log(conversations);
   const [selectedConversation, setSelectedConversation] = useRecoilState(
     selectedConversationAtom
   );
   const currentUser = useRecoilValue(userAtom);
   const showToast = useShowToast();
+  const { socket, onlineUsers } = useSocket();
   const handleConversationSearch = async (e) => {
     e.preventDefault();
     setSearchingUser(true);
@@ -93,6 +96,7 @@ const ChatPage = () => {
           showToast("Error", data.error, "error");
           return;
         }
+        console.log(data)
         setConversations(data);
       } catch (error) {
         showToast("Error", error, "error");
@@ -168,6 +172,9 @@ const ChatPage = () => {
             : conversations.map((conversation) => (
                 <Conversation
                   key={conversation._id}
+                  isOnline={onlineUsers.includes(
+                    conversation?.participants[0]._id
+                  )}
                   conversation={conversation}
                 />
               ))}

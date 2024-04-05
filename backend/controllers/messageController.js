@@ -3,6 +3,7 @@ import Post from "../models/postModel.js";
 import Conversation from "../models/conversationModel.js";
 import Message from "../models/messageModel.js";
 import { v2 as cloudinary } from "cloudinary";
+import { getRecipientSocketId, io } from "../socket/socket.js";
 
 const getConversations = async (req, res) => {
   const userId = req.user._id;
@@ -75,6 +76,10 @@ const sendMessage = async (req, res) => {
         },
       }),
     ]);
+    const recipientSocketId = getRecipientSocketId(recipientId);
+    if (recipientSocketId) {
+      io.to(recipientSocketId).emit("newMessage", newMessage);
+    }
     res.status(201).json(newMessage);
   } catch (error) {
     res.status(500).json({ error: error.message });

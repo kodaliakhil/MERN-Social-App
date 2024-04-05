@@ -31,3 +31,7 @@
 ![methods in socket.io](image-2.png)
 ![how socket.io work](image-3.png)
 
+# Websocket Implementation
+- After socket setup in the backend install `socket-clent` in the frontend
+
+`npm i socket.io-client`

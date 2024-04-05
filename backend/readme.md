@@ -24,3 +24,9 @@
 # Models for Conversations and messages
 
 ![models design](image.png)
+
+# Web Socket
+
+- In order to use socket we need to install `socket.io` package.
+
+`npm install socket.io`
