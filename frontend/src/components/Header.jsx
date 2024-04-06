@@ -7,7 +7,6 @@ import userAtom from "../atoms/userAtom";
 import { AiFillHome } from "react-icons/ai";
 import { RxAvatar } from "react-icons/rx";
 import { BsFillChatQuoteFill } from "react-icons/bs";
-import { MdOutlineSettings } from "react-icons/md";
 import LogoutBtn from "./LogoutBtn";
 import authScreenAtom from "../atoms/authAtom";
 
@@ -38,9 +37,6 @@ const Header = () => {
         <Flex alignItems={"center"} gap={4}>
           <Link to={`/${user.username}`}>
             <RxAvatar size={24} />
-          </Link>
-          <Link to={"/settings"}>
-            <MdOutlineSettings size={24} />
           </Link>
           <Link to={"/chat"}>
             <BsFillChatQuoteFill size={20} />
