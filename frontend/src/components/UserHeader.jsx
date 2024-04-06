@@ -19,15 +19,17 @@ import { useRecoilValue } from "recoil";
 import userAtom from "../atoms/userAtom";
 import { useState } from "react";
 import useShowToast from "../hooks/useShowToast";
+import useFollowUnfollow from "../hooks/useFollowUnfollow";
 
 const UserHeader = ({ user }) => {
   const toast = useToast();
   const currentUser = useRecoilValue(userAtom); //  logged in User
-  const [following, setFollowing] = useState(
-    user?.followers.includes(currentUser?._id)
-  );
-  const [updating, setUpdating] = useState(false);
-  const showToast = useShowToast();
+  // const [following, setFollowing] = useState(
+  //   user?.followers.includes(currentUser?._id)
+  // );
+  // const [updating, setUpdating] = useState(false);
+  // const showToast = useShowToast();
+  const { handleFollowUnfollow, updating, following } = useFollowUnfollow(user);
   function copyURL() {
     const currentURL = window.location.href;
     navigator.clipboard.writeText(currentURL).then(() => {
@@ -40,38 +42,38 @@ const UserHeader = ({ user }) => {
       });
     });
   }
-  async function handleFollowUnfollow() {
-    if (!currentUser) {
-      showToast("Error", "Please Login to Follow", "error");
-      return;
-    }
-    if (updating) return;
-    setUpdating(true);
-    try {
-      const res = await fetch(`/api/users/follow/${user._id}`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      const data = await res.json();
-      if (data.error) {
-        showToast("Error", data.error, "error");
-        return;
-      }
-      if (following) {
-        user.followers.pop();
-      } else {
-        user.followers.push(currentUser?._id);
-      }
-      setFollowing(!following);
-      showToast("Success", data.message, "success");
-    } catch (error) {
-      showToast("Error", error, "error");
-    } finally {
-      setUpdating(false);
-    }
-  }
+  // async function handleFollowUnfollow() {
+  //   if (!currentUser) {
+  //     showToast("Error", "Please Login to Follow", "error");
+  //     return;
+  //   }
+  //   if (updating) return;
+  //   setUpdating(true);
+  //   try {
+  //     const res = await fetch(`/api/users/follow/${user._id}`, {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //     });
+  //     const data = await res.json();
+  //     if (data.error) {
+  //       showToast("Error", data.error, "error");
+  //       return;
+  //     }
+  //     if (following) {
+  //       user.followers.pop();
+  //     } else {
+  //       user.followers.push(currentUser?._id);
+  //     }
+  //     setFollowing(!following);
+  //     showToast("Success", data.message, "success");
+  //   } catch (error) {
+  //     showToast("Error", error, "error");
+  //   } finally {
+  //     setUpdating(false);
+  //   }
+  // }
   return (
     <VStack gap={4} alignItems={"start"}>
       {/*//////////////////////////////// User details header ////////////////////////////*/}

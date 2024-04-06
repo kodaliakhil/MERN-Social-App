@@ -1,10 +1,10 @@
 import { Avatar, Box, Button, Flex, Text } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import React from "react";
+import useFollowUnfollow from "../hooks/useFollowUnfollow";
 
 const SuggestedUser = ({ user }) => {
-  const following = false;
-  const updating = false;
+  const { handleFollowUnfollow, updating, following } = useFollowUnfollow(user);
   return (
     <Flex gap={2} justifyContent={"space-between"} alignItems={"center"}>
       {/* left side */}
@@ -24,7 +24,7 @@ const SuggestedUser = ({ user }) => {
         size={"sm"}
         color={following ? "black" : "white"}
         bg={following ? "white" : "blue.400"}
-        // onClick={handleFollowUnfollow}
+        onClick={handleFollowUnfollow}
         isLoading={updating}
         _hover={{
           color: following ? "black" : "white",
