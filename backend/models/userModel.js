@@ -37,6 +37,10 @@ const userSchema = mongoose.Schema(
       type: String,
       default: "",
     },
+    isFrozen: {
+      type: Boolean,
+      default: false,
+    },
   },
   { timestamps: true } //This will create createdAt and updatedAt fields in our Database. It is a good practice to use this
 );

@@ -16,6 +16,7 @@ const UserPage = () => {
   const showToast = useShowToast();
   useEffect(() => {
     const getPosts = async () => {
+      if (!user) return;
       setFetchingPosts(true);
       try {
         const res = await fetch(`/api/posts/user/${username}`);
@@ -32,7 +33,7 @@ const UserPage = () => {
       }
     };
     getPosts();
-  }, [username, showToast, setPosts]); //4:46:42 to 4:47:47
+  }, [username, showToast, setPosts, user]); //4:46:42 to 4:47:47
 
   if (!user && loading)
     return (

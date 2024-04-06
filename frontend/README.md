@@ -6,6 +6,7 @@
 - Remove `showToast` from `useEffect dependencies` if not necessary
 - Add delete comment functionality.
 - Implement `Debouncing`
+- Add Avatar in header to show img of user instead of icon.
 
 # To get rid of cors error
 
