@@ -14,7 +14,8 @@ export const SocketContextProvider = ({ children }) => {
   console.log(onlineUsers);
   const user = useRecoilValue(userAtom);
   useEffect(() => {
-    const socket = io("http://localhost:3000", {
+    const socket = io("/", {
+      // in development use "http://localhost:3000" in production use "/"
       //  backend url
       query: {
         userId: user?._id,
