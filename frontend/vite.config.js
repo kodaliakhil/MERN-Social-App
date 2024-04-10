@@ -8,7 +8,7 @@ export default defineConfig({
     // to get rid of cors error
     proxy: {
       "/api": {
-        target: import.meta.env.VITE_BACKEND_URL,
+        target: "http://localhost:3000",
         changeOrigin: false,
         secure: false,
       },
