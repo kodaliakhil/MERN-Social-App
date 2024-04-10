@@ -37,7 +37,7 @@ const Post = ({ post, postedBy }) => {
   useEffect(() => {
     const getUser = async () => {
       try {
-        const res = await fetch("/api/users/profile/" + postedBy);
+        const res = await fetch(import.meta.env.VITE_BACKEND_URL+"/api/users/profile/" + postedBy);
         const data = await res.json();
         if (data.error) {
           showToast("Error", data.error, "error");

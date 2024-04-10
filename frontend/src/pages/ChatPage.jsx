@@ -90,7 +90,7 @@ const ChatPage = () => {
   useEffect(() => {
     const getConversations = async () => {
       try {
-        const res = await fetch("/api/messages/conversations");
+        const res = await fetch(import.meta.env.VITE_BACKEND_URL+"/api/messages/conversations");
         const data = await res.json();
         if (data.error) {
           showToast("Error", data.error, "error");

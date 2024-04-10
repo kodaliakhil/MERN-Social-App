@@ -40,7 +40,7 @@ export default function SignupCard() {
   const handleSignUp = async () => {
     setLoading(true);
     try {
-      const res = await fetch("/api/users/signup", {
+      const res = await fetch(import.meta.env.VITE_BACKEND_URL+"/api/users/signup", {
         // It will take prefix of the url from vite.config.js > proxy > /api > target
         method: "POST",
         headers: {

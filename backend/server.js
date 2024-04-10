@@ -22,6 +22,11 @@ app.use(
     origin: process.env.FRONTEND_URL, // Replace with the actual origin of your client app
   })
 );
+app.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", process.env.FRONTEND_URL);
+  // Add other CORS headers as needed
+  next();
+});
 app.use(express.json({ limit: "50mb" })); // To parse JSON data in the req.body
 app.use(express.urlencoded({ extended: true })); // To parse form data in the req.body. 'extended' value true means even if the req.body has some nested objects it is going to parse that data without any problem
 app.use(cookieParser());
