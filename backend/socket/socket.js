@@ -3,12 +3,13 @@ import http from "http";
 import express from "express";
 import Message from "../models/messageModel.js";
 import Conversation from "../models/conversationModel.js";
-
+import dotenv from "dotenv";
+dotenv.config();
 const app = express();
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: "http://localhost:5173", //frontend url
+    origin: process.env.FRONTEND_URL, //frontend url
     methods: ["GET", "POST"],
   },
 });

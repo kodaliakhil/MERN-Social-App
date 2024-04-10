@@ -14,7 +14,7 @@ export const SocketContextProvider = ({ children }) => {
   console.log(onlineUsers);
   const user = useRecoilValue(userAtom);
   useEffect(() => {
-    const socket = io("http://localhost:3000", {
+    const socket = io(import.meta.env.VITE_BACKEND_URL, {
       //  backend url
       query: {
         userId: user?._id,
