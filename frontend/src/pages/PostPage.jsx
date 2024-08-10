@@ -32,8 +32,9 @@ const PostPage = () => {
   const handleDeletePost = async () => {
     try {
       if (!window.confirm("Are you sure you want to delete this post?")) return;
-      const res = await fetch(`/api/posts/delPost/${currentPost._id}`, {
+      const res = await fetch(import.meta.env.VITE_BACKEND_URL+`/api/posts/delPost/${currentPost._id}`, {
         method: "DELETE",
+        credentials: 'include',
       });
       const data = await res.json();
       if (data.error) {
@@ -49,7 +50,9 @@ const PostPage = () => {
   useEffect(() => {
     const getPost = async () => {
       try {
-        const res = await fetch(`/api/posts/getPost/${pid}`);
+        const res = await fetch(import.meta.env.VITE_BACKEND_URL+`/api/posts/getPost/${pid}`,{
+          credentials: 'include',
+        });
         const data = await res.json();
         if (data.error) {
           showToast("Error", data.error, "error");

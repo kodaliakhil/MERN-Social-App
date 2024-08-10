@@ -14,12 +14,17 @@ const UserPage = () => {
   const [fetchingPosts, setFetchingPosts] = useState(true);
   const { username } = useParams();
   const showToast = useShowToast();
+  // console.log(username);
   useEffect(() => {
     const getPosts = async () => {
       if (!user) return;
       setFetchingPosts(true);
       try {
-        const res = await fetch(`/api/posts/user/${username}`);
+
+        const res = await fetch(import.meta.env.VITE_BACKEND_URL+`/api/posts/user/${username}`, {
+          method: "GET",
+          credentials: "include",
+        });
         const data = await res.json();
         if (data.error) {
           showToast("Error", data.error, "error");

@@ -7,10 +7,15 @@ const useGetUserProfile = () => {
   const [loading, setLoading] = useState(true);
   const { username } = useParams();
   const showToast = useShowToast();
+  // console.log(user)
   useEffect(() => {
     const getUser = async () => {
       try {
-        const res = await fetch(`/api/users/profile/${username}`);
+        const res = await fetch(import.meta.env.VITE_BACKEND_URL+`/api/users/profile/${username}`,{
+          method: "GET",
+          credentials: 'include',
+        });
+        console.log(res)
         const data = await res.json();
         if (data.error) {
           showToast("Error", data.error, "error");

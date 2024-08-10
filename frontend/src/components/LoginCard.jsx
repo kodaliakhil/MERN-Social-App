@@ -35,6 +35,7 @@ export default function LoginCard() {
     try {
       const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/users/login`, {
         method: "POST",
+        credentials: 'include',
         headers: {
           "Content-Type": "application/json",
         },

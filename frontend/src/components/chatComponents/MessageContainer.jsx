@@ -30,7 +30,6 @@ const MessageContainer = () => {
   const { socket } = useSocket();
   const setConversations = useSetRecoilState(conversationsAtom);
   const messageEndRef = useRef(null);
-
   useEffect(() => {
     messageEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
@@ -93,7 +92,10 @@ const MessageContainer = () => {
       setMessages([]);
       try {
         if (selectedConversation.mock) return;
-        const res = await fetch(`api/messages/${selectedConversation.userId}`);
+        const res = await fetch(import.meta.env.VITE_BACKEND_URL+`/api/messages/${selectedConversation.userId}`,{
+          method: "GET",
+          credentials: 'include',
+        });
         const data = await res.json();
         if (data.error) {
           showToast("Error", data.error, "error");

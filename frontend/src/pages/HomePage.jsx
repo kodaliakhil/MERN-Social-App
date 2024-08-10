@@ -13,7 +13,9 @@ const HomePage = () => {
     const getFeedPosts = async () => {
       // setPosts([]) // uncomment this if there is any lag or flickering when we go from profile page to home page
       try {
-        const res = await fetch(import.meta.env.VITE_BACKEND_URL+"/api/posts/feed");
+        const res = await fetch(import.meta.env.VITE_BACKEND_URL+"/api/posts/feed",{
+          credentials: 'include',
+        });
         const data = await res.json();
         if (data.error) {
           showToast("Error", data.error, "error");

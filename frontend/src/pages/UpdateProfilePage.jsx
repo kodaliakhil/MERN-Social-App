@@ -40,8 +40,9 @@ export default function UpdateProfilePage() {
     if (updating) return;
     setUpdating(true);
     try {
-      const res = await fetch(`/api/users/update/${user._id}`, {
+      const res = await fetch(import.meta.env.VITE_BACKEND_URL+`/api/users/update/${user._id}`, {
         method: "PUT",
+        credentials: 'include',
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ ...inputs, profilePic: imgUrl }),
       });

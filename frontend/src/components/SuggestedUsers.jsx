@@ -10,7 +10,9 @@ const SuggestedUsers = () => {
   useEffect(() => {
     const getSuggestedUsers = async () => {
       try {
-        const res = await fetch(import.meta.env.VITE_BACKEND_URL+"/api/users/suggested");
+        const res = await fetch(import.meta.env.VITE_BACKEND_URL+"/api/users/suggested",{
+          credentials: 'include',
+        });
         const data = await res.json();
         if (data.error) {
           showToast("Error", data.error, "error");

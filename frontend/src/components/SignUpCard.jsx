@@ -43,6 +43,7 @@ export default function SignupCard() {
       const res = await fetch(import.meta.env.VITE_BACKEND_URL+"/api/users/signup", {
         // It will take prefix of the url from vite.config.js > proxy > /api > target
         method: "POST",
+        credentials: 'include',
         headers: {
           "Content-Type": "application/json",
         },

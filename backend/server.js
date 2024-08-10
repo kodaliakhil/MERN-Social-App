@@ -20,10 +20,12 @@ cloudinary.config({
 app.use(
   cors({
     origin: process.env.FRONTEND_URL, // Replace with the actual origin of your client app
+    credentials: true,
   })
 );
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", process.env.FRONTEND_URL);
+  res.setHeader("Access-Control-Allow-Credentials", true);
   // Add other CORS headers as needed
   next();
 });
